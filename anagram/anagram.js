@@ -1,13 +1,27 @@
 
 
-export const findAnagrams = (valores, lista) => {
-  let anagrams = [];
-  let compare = valores.toLowerCase().split("").sort().join();
-  for (let i = 0; i < lista.length; i++) {
-    if(lista[i].toLowerCase().split("").sort().join() == compare && 
-    lista[i].toLowerCase() != valores.toLowerCase()){
-      anagrams.push(lista[i]);
+export const findAnagrams = (anagram, words) => {
+  let vector = [];
+  let w = anagram.toLowerCase();
+
+  vector = words.filter(x => (x.toLowerCase() != w) && (x.length == w.length));
+
+  w = w.split('');
+  w.sort();
+
+  vector = vector.filter(x => {
+    x = x.toLowerCase();
+    x = x.split('');
+    x.sort();
+
+    for (let i = 0; i < w.length; i++) {
+      if (x[i] != w[i]) {
+        return false;
+      }
     }
-  }
-  return anagrams;
+
+    return true;
+  });
+
+  return vector;
 };
